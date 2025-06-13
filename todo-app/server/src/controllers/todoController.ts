@@ -3,7 +3,7 @@ import { join, dirname } from 'path';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import lowdb from 'lowdb';
-import FileSync from 'lowdb/adapters/FileSync';
+import FileSync from 'lowdb/adapters/FileSync.js';
 import { nanoid } from 'nanoid';
 import { Todo } from '../models/todo';
 
