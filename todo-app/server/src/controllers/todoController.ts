@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { join, dirname } from 'path';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
+import { fileURLToPath } from 'url';
 import lowdb from 'lowdb';
 import FileSync from 'lowdb/adapters/FileSync';
 import { nanoid } from 'nanoid';
@@ -9,6 +10,10 @@ import { Todo } from '../models/todo';
 interface Schema {
   todos: Todo[];
 }
+
+// Get the directory path using import.meta.url (ESM equivalent of __dirname)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Ensure data directory exists
 const dataDir = join(__dirname, '../data');
