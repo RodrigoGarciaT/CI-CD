@@ -1,6 +1,7 @@
 import request from 'supertest';
 import express from 'express';
-import todoRoutes from '../routes/todoRoutes';
+import { Router } from 'express';
+import todoRoutes from '../routes/todoRoutes.js';
 
 const app = express();
 app.use(express.json());

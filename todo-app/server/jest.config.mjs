@@ -1,17 +1,21 @@
 const config = {
-  preset: 'ts-jest',
+  preset: 'ts-jest/presets/default-esm',
   testEnvironment: 'node',
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1',
   },
   transform: {
-    '^.+\\.ts$': ['ts-jest', {
-      useESM: true,
-      tsconfig: 'tsconfig.json'
-    }]
+    '^.+\\.tsx?$': [
+      'ts-jest',
+      {
+        useESM: true,
+        tsconfig: 'tsconfig.json'
+      }
+    ]
   },
-  extensionsToTreatAsEsm: ['.ts'],
-  transformIgnorePatterns: ['node_modules/(?!(nanoid)/)'],
+  extensionsToTreatAsEsm: ['.ts', '.tsx'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  transformIgnorePatterns: [],
   testMatch: ['**/__tests__/**/*.test.ts']
 };
 
