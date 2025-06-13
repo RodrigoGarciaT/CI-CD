@@ -1,0 +1,24 @@
+{
+  "todos": [
+    {
+      "id": "O_DXCXmYlBk6HpSOWqboY",
+      "text": "casa",
+      "completed": true
+    },
+    {
+      "id": "ataOG1dMP7OP0ihKAodqb",
+      "text": "taco",
+      "completed": true
+    },
+    {
+      "id": "QLsaQarF0fnRnPWvGDr4j",
+      "text": "chilaquil",
+      "completed": true
+    },
+    {
+      "id": "VQRMoR6Adj8Wr969FUP1w",
+      "text": "tortilla",
+      "completed": false
+    }
+  ]
+}

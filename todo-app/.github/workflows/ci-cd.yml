@@ -1,0 +1,79 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    - name: Install client dependencies
+      working-directory: ./client
+      run: npm ci
+
+    - name: Check client TypeScript compilation
+      working-directory: ./client
+      run: npx tsc --noEmit
+
+    - name: Run client tests
+      working-directory: ./client
+      run: npm test -- --watchAll=false
+
+    - name: Install server dependencies
+      working-directory: ./server
+      run: npm ci
+
+    - name: Check server TypeScript compilation
+      working-directory: ./server
+      run: npx tsc --noEmit
+
+    - name: Create test database file
+      working-directory: ./server/src/data
+      run: |
+        mkdir -p ./
+        echo '{"todos":[]}' > todos.json
+
+    - name: Run server tests
+      working-directory: ./server
+      run: npm test
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Use Node.js 18
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18.x'
+        cache: 'npm'
+
+    - name: Install and build client
+      working-directory: ./client
+      run: |
+        npm ci
+        npm run build
+
+    - name: Install and build server
+      working-directory: ./server
+      run: |
+        npm ci
+        npm run build
