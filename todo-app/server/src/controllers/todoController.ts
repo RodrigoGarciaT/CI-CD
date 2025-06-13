@@ -76,12 +76,13 @@ export const toggleTodo = async (req: Request, res: Response, next: NextFunction
       return;
     }
 
+    const updatedTodo = { ...todo, completed: !todo.completed };
     db.get('todos')
       .find({ id })
-      .assign({ completed: !todo.completed })
+      .assign(updatedTodo)
       .write();
-
-    res.json({ ...todo, completed: !todo.completed });
+    
+    res.status(200).json(updatedTodo);
   } catch (error) {
     next(error);
   }
