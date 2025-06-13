@@ -7,11 +7,33 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
     
-    - name: Simple test step
-      run: echo "This is a test step in our GitHub Actions workflow"
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+        
+    - name: Install Server Dependencies
+      run: |
+        cd todo-app/server
+        npm install
+        
+    - name: Run Server Tests
+      run: |
+        cd todo-app/server
+        npm test
+        
+    - name: Install Client Dependencies
+      run: |
+        cd todo-app/client
+        npm install
+        
+    - name: Run Client Tests
+      run: |
+        cd todo-app/client
+        npm test -- --watchAll=false
