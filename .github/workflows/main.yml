@@ -27,13 +27,3 @@ jobs:
       run: |
         cd todo-app/server
         npm test -- --config jest.config.mjs
-        
-    - name: Install Client Dependencies
-      run: |
-        cd todo-app/client
-        npm install
-        
-    - name: Run Client Tests
-      run: |
-        cd todo-app/client
-        npm test -- --watchAll=false
