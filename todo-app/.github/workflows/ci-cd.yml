@@ -2,9 +2,9 @@ name: CI/CD
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, master ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, master ]
 
 jobs:
   test:
@@ -21,7 +21,7 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+        cache: "npm"
 
     - name: Install client dependencies
       working-directory: ./client
@@ -47,7 +47,7 @@ jobs:
       working-directory: ./server/src/data
       run: |
         mkdir -p ./
-        echo '{"todos":[]}' > todos.json
+        echo "{\"todos\":[]}" > todos.json
 
     - name: Run server tests
       working-directory: ./server
@@ -63,8 +63,8 @@ jobs:
     - name: Use Node.js 18
       uses: actions/setup-node@v3
       with:
-        node-version: '18.x'
-        cache: 'npm'
+        node-version: "18.x"
+        cache: "npm"
 
     - name: Install and build client
       working-directory: ./client
