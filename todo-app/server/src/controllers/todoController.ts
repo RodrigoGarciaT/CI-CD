@@ -11,12 +11,13 @@ interface Schema {
   todos: Todo[];
 }
 
-// Get the directory path using import.meta.url (ESM equivalent of __dirname)
+// Get the project root directory path
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+const projectRoot = join(__dirname, '..'); // src directory
+const dataDir = join(projectRoot, 'data');
 
 // Ensure data directory exists
-const dataDir = join(__dirname, '../data');
 if (!existsSync(dataDir)) {
   mkdirSync(dataDir, { recursive: true });
 }
