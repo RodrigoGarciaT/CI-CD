@@ -38,8 +38,10 @@ export const TodoList = () => {
 
   const toggleTodo = async (id: string) => {
     try {
-      await axios.patch(`http://localhost:3001/api/todos/${id}/toggle`);
-      fetchTodos();
+      const response = await axios.patch(`http://localhost:3001/api/todos/${id}/toggle`);
+      setTodos(todos.map(todo => 
+        todo.id === id ? response.data : todo
+      ));
     } catch (error) {
       console.error('Error toggling todo:', error);
     }
